@@ -1,8 +1,9 @@
+#include <stdlib.h>
 #include <uv.h>
 
 static uv_loop_t* loop;
 static uv_tcp_t server;
-static uv_buf_t res = uv_buf_init("Hello World\n", 12);
+static uv_buf_t res;
 
 void on_new_connection(uv_stream_t* server, int status) {
   if (status < 0) {
@@ -23,7 +24,7 @@ void on_new_connection(uv_stream_t* server, int status) {
 
 int main() {
   loop = uv_default_loop();
-
+  res = uv_buf_init("Hello World\n", 12);
   uv_tcp_init(loop, &server);
 
   struct sockaddr_in addr;
